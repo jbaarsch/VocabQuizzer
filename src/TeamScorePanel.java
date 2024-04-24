@@ -9,6 +9,7 @@ public class TeamScorePanel extends JPanel {
     int score;
     JLabel scoreLabel;
     JButton scoreButton;
+    JButton editTeamButton;
 
     public TeamScorePanel(String name) {
         this.name = name;
@@ -33,12 +34,20 @@ public class TeamScorePanel extends JPanel {
             }
         });
 
+        editTeamButton = new JButton("Edit");
+        editTeamButton.addActionListener( e -> {
+            String teamName = JOptionPane.showInputDialog("Please enter Team Name");
+            this.name = teamName;
+            nameLabel.setText(this.name);
+        });
+
         namePanel.add(nameLabel);
         scorePanel.add(scoreLabel);
 
         this.add(namePanel);
         this.add(scorePanel);
         this.add(scoreButton);
+        this.add(editTeamButton);
         this.setPreferredSize(new Dimension(180, 230));
         this.setBackground(Color.LIGHT_GRAY);
 

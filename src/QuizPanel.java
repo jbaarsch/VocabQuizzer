@@ -14,9 +14,13 @@ import javax.swing.*;
 
 public class QuizPanel extends JPanel{
 
+    private final String fileName = "src/terms/cs1_final_terms.txt";
+            //"src/terms/oop_with_java_mod1_terms.txt";
+
+
     List<String> terms;
     JPanel termDisplayPanel;
-    JLabel termLabel;
+    JLabel termLabel, repaintLabel;
     ArrayList<TeamScorePanel> teamScorePanels;
     JPanel teamDisplayPanel;
     JPanel buttonPanel;
@@ -29,18 +33,21 @@ public class QuizPanel extends JPanel{
         terms = new ArrayList();
         initializeTerms();
 
+        repaintLabel = new JLabel("");  // no content, just for forcing repaint()
+
+
         teamScorePanels =  new ArrayList();
         teamDisplayPanel = new JPanel();
         teamDisplayPanel.setPreferredSize(new Dimension(800, 500));
         buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(800, 50));
         termDisplayPanel = new JPanel();
-        termLabel = new JLabel(terms.removeFirst());
+        termLabel = new JLabel("Ready Players");
 
         this.setPreferredSize(new Dimension(1000, 750));
         this.setBackground(Color.LIGHT_GRAY);
 
-        termDisplayPanel.setPreferredSize(new Dimension(800, 200));
+        termDisplayPanel.setPreferredSize(new Dimension(1000, 200));
         termLabel.setFont(new Font("sans-serif", Font.BOLD, 72));
         termDisplayPanel.add(termLabel);
 
@@ -51,7 +58,10 @@ public class QuizPanel extends JPanel{
         nextTermButton = new JButton("Next Term");
         nextTermButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                termLabel.setText(terms.removeFirst());
+                if (terms.size() > 0)
+                    termLabel.setText(terms.removeFirst());
+                else
+                    termLabel.setText("End of Terms");
             }
         });
         buttonPanel.add(nextTermButton);
@@ -62,9 +72,14 @@ public class QuizPanel extends JPanel{
 
 
 
+        this.add(repaintLabel);
 
 
 
+    }
+
+    public void paint(Graphics g) {
+        super.paint(g);
 
     }
 
@@ -74,12 +89,9 @@ public class QuizPanel extends JPanel{
 
     private void initializeTerms() throws IOException {
 
-        Stream<String> lines = Files.lines(Path.of("terms.txt"));
+        Stream<String> lines = Files.lines(Path.of(fileName));
         terms = lines.collect(Collectors.toList());
         Collections.shuffle(terms);
-
-
-
 
     }
 
@@ -93,6 +105,7 @@ public class QuizPanel extends JPanel{
             teamScorePanels.add(newTeam);
             teamDisplayPanel.add(newTeam);
             teamDisplayPanel.repaint();
+            termLabel.setText("Welcome " + name + "!");
             repaint();
 
 

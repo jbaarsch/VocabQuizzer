@@ -1,0 +1,33 @@
+Pointer
+Reference Variable
+nullptr
+indirection operator
+dereferencing
+pointer constant
+dynamic memory allocation
+new
+exception
+memory leak
+smart pointers
+cctype
+C-string
+concatenation
+atoi
+token
+delimeter
+strstr
+strlen
+strcpy
+strcat
+data type
+abstraction
+members (of a struct)
+struct
+instance
+dot operator
+->
+enumerated data type
+enumerators
+cast
+anonymous enumerated type
+strongly-typed enumerator
